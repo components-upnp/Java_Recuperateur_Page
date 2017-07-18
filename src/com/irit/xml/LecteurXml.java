@@ -52,4 +52,11 @@ public class LecteurXml {
         sp.parse(new InputSource(new StringReader(xml)), handler);
     }
 
+    public String getUdn() {
+        return udn;
+    }
+
+    public String getCommande() {
+        return commande;
+    }
 }
