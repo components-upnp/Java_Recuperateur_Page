@@ -56,7 +56,7 @@ public class RecuperateurServer implements Runnable {
 
                         if (commande.equals("DROITE"))
                             numPage = new Integer(Integer.parseInt(numPage) + 1).toString();
-                        if (commande.equals("GAUCHE"))
+                        if (commande.equals("GAUCHE") && (Integer.parseInt(numPage) != 0))
                             numPage = new Integer(Integer.parseInt(numPage) - 1).toString();
 
                         System.out.println("Numéro Page : " + numPage);
