@@ -10,9 +10,11 @@ import org.fourthline.cling.model.meta.*;
 import org.fourthline.cling.model.types.DeviceType;
 import org.fourthline.cling.model.types.UDADeviceType;
 import org.fourthline.cling.model.types.UDN;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 
 /**
@@ -37,6 +39,7 @@ public class RecuperateurServer implements Runnable {
         });
 
         gen = new GenerateurXml();
+        numPage = "0";
 
         try {
             upnpService.getRegistry().addDevice(
@@ -54,13 +57,19 @@ public class RecuperateurServer implements Runnable {
                         if (commande.equals("DROITE"))
                             numPage = new Integer(Integer.parseInt(numPage) + 1).toString();
                         if (commande.equals("GAUCHE"))
-                            numPage = new Integer(Integer.parseInt(numPage) + 1).toString();
+                            numPage = new Integer(Integer.parseInt(numPage) - 1).toString();
+
+                        System.out.println("Numéro Page : " + numPage);
 
                         try {
                             pageService.getManager().getImplementation().setPage(gen.getDocXml(udn, numPage));
                         } catch (TransformerException e) {
                             e.printStackTrace();
                         } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
